@@ -17,7 +17,12 @@
         <div id="logo"><img src="{{ url_for('static', filename='caf/logo_couleur.png') }}"></div>
 
         <div id="title">
-            <h2>Collective de {{','.join(activity_names)}} &mdash; </h2>
+            <h2>
+                {{event.event_type.name}} 
+                {%if activity_names|length%}
+                 de {{','.join(activity_names)}} 
+                {%endif%}
+            &mdash; </h2>
             <h1>{{event.title}}</h1>
         </div>
 
