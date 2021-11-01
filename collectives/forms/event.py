@@ -2,7 +2,7 @@
 """
 from operator import attrgetter
 
-from datetime import date, timedelta
+from datetime import timedelta
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask import current_app
@@ -334,12 +334,12 @@ class PriceDateInterval:
 
     start = None
     """Start date of the interval (inclusive)
-    
+
     :type: :py:class:`datetime.date`"""
 
     end = None
     """End date of the interval (inclusive)
-    
+
     :type: :py:class:`datetime.date`"""
 
     amount = None
@@ -366,12 +366,10 @@ class PriceDateInterval:
                     f"jusqu'au {format_date(self.end)}: {format_currency(self.amount)}"
                 )
             return ""
-        else:
-            if self.end:
-                return f"{format_date_range(self.start, self.end, False)}: {format_currency(self.amount)}"
-            return (
-                f"à partir du {format_date(self.start)}: {format_currency(self.amount)}"
-            )
+
+        if self.end:
+            return f"{format_date_range(self.start, self.end, False)}: {format_currency(self.amount)}"
+        return f"à partir du {format_date(self.start)}: {format_currency(self.amount)}"
 
 
 def generate_price_intervals(item, user):
